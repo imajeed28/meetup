@@ -1,28 +1,52 @@
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark " style="padding-right: 8rem;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark " style="font-family: 'Open Sans', sans-serif;">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand"
             {% if user.is_authenticated %}
-            href="{% url 'post_list' %}"
-            {% else %}
-            href="{% url 'index' %}" 
+              href="{% url 'post_list' %}"
+              {% else %}
+              href="{% url 'index' %}" 
             {% endif %}
-            style="letter-spacing: 0.2rem;">
+            style="letter-spacing: 0.2rem; font-family: 'Open Sans', sans-serif;"> 
+            <i class="far fa-comment-alt">
+            </i>
             MEET UP
+            
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-size: larger;">
+            
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+              
           </ul>
+          
+            <a href="{% url 'account_login' %}" class="btn btn-primary mr-2" style="margin-right: 1rem;">Log In</a>
+            <a href="{% url 'account_signup' %}" class="btn btn-outline-light">Register</a>
+            <!-- <button class="btn btn-primary" type="submit" style="margin-right: 1rem;">LOGIN</button>
+            <button class="btn btn-outline-light" type="submit">REGISTER</button> -->
+
+          {% if user.is_authenticated %}
           <form class="d-flex">
             <div class="input-group">
             <span class="input-group-text" id="basic-addon1">@</span>
             <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
         </div>
           </form>
-          {% if user.is_authenticated %}
+         
           <div class="nav-item dropdown ml-1">
             <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="buton" aria-expanded="false"><i class="fas fa-user"></i></a>
             <ul class="dropdown-menu bg-outline-light">
@@ -30,6 +54,7 @@
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
             </ul>
           </div>
+          
           {% endif %}
         </div>
       </div>
