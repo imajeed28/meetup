@@ -1,0 +1,29 @@
+.remove-default-btn {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.edit-color {
+	color: #333;
+}
+
+.edit-color:hover, .delete-color:hover{
+    color: inherit;
+}
+.delete-color{
+    color: maroon;
+}
+
+.post-link {
+	text-decoration: none;
+}
+
+.post-text {
+	padding-top: 0.5rem;
+}
+
+.post-img {
+	float: left;
+	margin-right: 1rem;
+}
