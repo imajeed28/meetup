@@ -19,7 +19,7 @@
             
             <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" role="buton" aria-expanded="false"><i class="fas fa-user"></i></a>
             <ul class="dropdown-menu bg-outline-light">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}">Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
             </ul>
             <form class="d-flex justify-content-end">
