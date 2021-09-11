@@ -22,10 +22,11 @@
               <li><a class="dropdown-item" href="{% url 'profile' request.user.profile.pk %}">Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
             </ul>
-            <form class="d-flex justify-content-end">
+            <form class="d-flex justify-content-end" method="GET" action="{% url 'profile-search' %}">
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+                  <button style="border: none; background-color: transparent; box-shadow: none" type="submit"><i class="fas fa-search" style="color: white;"></i></button>
               </div>
             </form>
           </div>
