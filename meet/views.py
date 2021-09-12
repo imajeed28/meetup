@@ -241,3 +241,15 @@ class UserSearch(View):
         }
 
         return render(request, 'meet/search.html', context)
+
+class ListFollowers(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        followers = profile.followers.all()
+
+        context = {
+            'profile': profile,
+            'followers': followers,
+        }
+
+        return render(request, 'meet/followers_list.html', context) 

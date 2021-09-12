@@ -8,13 +8,23 @@
 	color: #333;
 }
 
-.edit-color:hover, .delete-color:hover{
-    color: inherit;
-}
+
 .delete-color{
     color: maroon;
 }
 
+.edit-color:hover, 
+.delete-color:hover{
+    color: inherit;
+}
+
+.interest-color{
+	color: rgb(179, 4, 4);
+}
+
+.interest-color:hover{
+	color: rgb(179, 4, 4);
+}
 .post-link {
 	text-decoration: none;
 }
