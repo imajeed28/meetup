@@ -27,8 +27,11 @@ class PostListView(LoginRequiredMixin, View):
         return render(request, 'meet/post_list.html', context)
     
     def post(self, request, *args, **kwargs):
-        posts = Post.objects.all()
-        form = PostForm(request.POST)
+        logged_in_user = request.user
+        posts = Post.objects.filter(
+            author__profile__followers__in=[logged_in_user.id]
+        ).order_by('-created_on')
+        form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
             new_post = form.save(commit=False)
@@ -96,7 +99,7 @@ class CommentReplyView(LoginRequiredMixin, View):
 
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['body']
+    fields = ['body', 'image']
     template_name = 'meet/post_edit.html'
     
     def get_success_url(self):
