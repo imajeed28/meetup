@@ -101,7 +101,10 @@
                     {% endfor %}
                   </div>
                 {% endif %}
-                <p>{{ post.body }}</p>
+                <div class='body'>
+                    <p>{{ post.body }}</p>
+                </div>
+                <div></div>
                 <a href="{% url 'post_detail' post.pk %}" class="stretched-link"></a>
             </div>
 

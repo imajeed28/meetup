@@ -160,3 +160,8 @@
 .inbox-icon {
 	margin-right: 5px;
 }
+
+.body a {
+	/* text-decoration: none; */
+	color: rgb(73, 137, 180);
+}

@@ -8,33 +8,59 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Post(models.Model):
-    body = models.TextField()
-    image = models.ManyToManyField('Image', blank=True)
-    created_on = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, blank=True, related_name='likes')
-    dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
+	body = models.TextField()
+	image = models.ManyToManyField('Image', blank=True)
+	created_on = models.DateTimeField(default=timezone.now) 
+	author = models.ForeignKey(User, on_delete=models.CASCADE)
+	likes = models.ManyToManyField(User, blank=True, related_name='likes')
+	dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
+	tags = models.ManyToManyField('Tag', blank=True)
+
+	def create_tags(self):
+		for word in self.body.split():
+			if (word[0] == '#'):
+				tag = Tag.objects.filter(name=word[1:]).first()
+				if tag:
+					self.tags.add(tag.pk)
+				else:
+					tag = Tag(name=word[1:])
+					tag.save()
+					self.tags.add(tag.pk)
+				self.save()
 
 
 
 class Comment(models.Model):
-    comment = models.TextField()
-    created_on = models.DateTimeField(default=timezone.now)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
-    dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+ 	comment = models.TextField()
+ 	created_on = models.DateTimeField(default=timezone.now)
+ 	author = models.ForeignKey(User, on_delete=models.CASCADE)
+ 	post = models.ForeignKey('Post', on_delete=models.CASCADE)
+ 	likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
+ 	dislikes = models.ManyToManyField(User, blank=True, related_name='comment_dislikes')
+ 	parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
+ 	tags = models.ManyToManyField('Tag', blank=True)
 
-    @property
-    def children(self):
-					return Comment.objects.filter(parent=self).order_by('-created_on').all()
-	
-    @property
-    def is_parent(self):
-					if self.parent is None:
-						return True
-					return False
+ 	def create_tags(self):
+ 		for word in self.comment.split():
+ 			if (word[0] == '#'):
+ 				tag = Tag.objects.filter(name=word[1:]).first()
+ 				if tag:
+ 					self.tags.add(tag.pk)
+ 				else:
+ 					tag = Tag(name=word[1:])
+ 					tag.save()
+ 					self.tags.add(tag.pk)
+ 				self.save()
+
+ 	@property
+ 	def children(self):
+ 		return Comment.objects.filter(parent=self).order_by('-created_on').all()
+
+ 	@property
+ 	def is_parent(self):
+ 		if self.parent is None:
+ 			return True
+ 		return False
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)
@@ -82,3 +108,6 @@ class MessageModel(models.Model):
 
 class Image(models.Model):
 	image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
+
+class Tag(models.Model):
+	name = models.CharField(max_length=255)
