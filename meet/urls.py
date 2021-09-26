@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import PostListView, PostDetailView, PostEditView, PostDeleteView, CommentDeleteView, ProfileView, ProfileEditView, AddFollower, RemoveFollower, AddLike, AddDislike, UserSearch, ListFollowers, AddCommentLike, AddCommentDislike, CommentReplyView, PostNotification, FollowNotification, RemoveNotification, ListThreads, CreateThread, ThreadView, CreateMessage, ThreadNotification
+from .views import PostListView, PostDetailView, PostEditView, PostDeleteView, CommentDeleteView, ProfileView, ProfileEditView, AddFollower, RemoveFollower, AddLike, AddDislike, UserSearch, ListFollowers, AddCommentLike, AddCommentDislike, CommentReplyView, PostNotification, FollowNotification, RemoveNotification, ListThreads, CreateThread, ThreadView, CreateMessage, ThreadNotification, Explore
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list'),
+    path('explore/', Explore.as_view(), name='explore'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('post/edit/<int:pk>/', PostEditView.as_view(), name='post_edit'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
